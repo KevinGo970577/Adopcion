@@ -1,4 +1,5 @@
 import java.util.List;
+import java.util.ArrayList;
 
 public class Persona {
     private String nombre;
@@ -9,6 +10,7 @@ public class Persona {
     private List<Perro> listaPerros;
 
     public Persona() {
+        this.listaPerros = new ArrayList<>();
     }
 
     public Persona(String nombre, String apellido, int edad, String documento) {
@@ -16,6 +18,7 @@ public class Persona {
         this.apellido = apellido;
         this.edad = edad;
         this.documento = documento;
+        this.listaPerros = new ArrayList<>();
     }
 
     public String getNombre() {
@@ -54,14 +57,42 @@ public class Persona {
         return this;
     }
 
+    public List<Perro> getListaPerros() {
+        return listaPerros;
+    }
 
+    public Persona setListaPerros(List<Perro> listaPerros) {
+        this.listaPerros = listaPerros;
+        return this;
+    }
+
+    public boolean adoptarPerro(Perro perro) {
+        if (listaPerros.size() < 3) {
+            listaPerros.add(perro);
+            return true;
+        }
+        return false;
+    }
+
+    public Perro perroMasGrande() {
+        if (listaPerros.isEmpty()) {
+            return null;
+        }
+
+        Perro masViejo = listaPerros.get(0);
+        for (Perro perro : listaPerros) {
+            if (perro.getEdad() > masViejo.getEdad()) {
+                masViejo = perro;
+            }
+        }
+        return masViejo;
+    }
 
     @Override
     public String toString() {
-        return  "nombre='" + nombre + '\'' +
-                ", apellido='" + apellido + '\'' +
-                ", edad=" + edad +
-                ", documento='" + documento + '\'' +
-                ", listaPerros=" + listaPerros;
+        return "nombre= " + nombre + " " + apellido +
+                ", Edad= " + edad +
+                ", Documento= " + documento +
+                ", ListaPerros= " + listaPerros;
     }
 }
